@@ -29,8 +29,6 @@ app.use('/clients', clients);
 app.use('/events', events);
 app.use('/calendar', calendar);
 
-app.use('/calender', calender);
-
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
     const err = new Error('InvalidUri or InvalidHttpVerb');
