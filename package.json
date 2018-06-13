@@ -1,0 +1,32 @@
+{
+  "name": "afr-yelper-api",
+  "version": "0.1.0",
+  "description": "yelper api",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omarandrade/afr-yelper-api.git"
+  },
+  "keywords": [
+    "yelper",
+    "afr",
+    "fr",
+    "winning"
+  ],
+  "author": "Team Centaur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/omarandrade/afr-yelper-api/issues"
+  },
+  "homepage": "https://github.com/omarandrade/afr-yelper-api#readme",
+  "dependencies": {
+    "config": "^1.30.0",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "debug": "^3.1.0"
+  }
+}
