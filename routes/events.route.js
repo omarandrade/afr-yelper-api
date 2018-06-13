@@ -3,12 +3,13 @@ const router = express.Router();
 const yelpService = require('../services/yelp.service');
 const faker = require('faker');
 
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
     const { client, category, location, grade, price } = req.query;
     const requestUri = `/businesses/search/term=${category}&location=${location}`
     //get yelp data 
     const result = await yelpService.yelpGetPromise(requestUri);
-
+    const data = await yelperizeData(result);
+    return res.json(data);
 }), 
 
 async function yelperizeData(yelpResult) {
@@ -35,11 +36,10 @@ async function yelperizeData(yelpResult) {
     const yelpData = await Promise.all(yelpDataPromises);
     
     //add nm review data
-
     const finalData = yelpData.map(business => {
         return {
             ...business,
-            nmReview: 
+            nmReview: Math.floor(Math.random() * Math.floor(5))
         }
     })
 }

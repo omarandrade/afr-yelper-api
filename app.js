@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const health = require('./routes/health.route');
 const clients = require('./routes/clients.route');
+const events = require('./routes/events.route');
+const office = require('./routes/calendar.route');
 
 app.use((req, res, next) => {
     debug('Request received');
