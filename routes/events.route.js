@@ -8,6 +8,7 @@ async function yelperizeData(yelpResult) {
                         .map(business => {
                             const yelpData = {
                                 yelpId: business.id,
+                                name: business.name,
                                 is_closed: business.is_closed,
                                 phone: business.phone,
                                 rating: business.rating,
