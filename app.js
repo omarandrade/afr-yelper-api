@@ -24,14 +24,14 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 // Health check route used to validate service is up and healthly
-app.use('/health', health);
-app.use('/clients', clients);
-app.use('/places', places);
-app.use('/calendar', calendar);
+app.use('/api/health', health);
+app.use('/api/clients', clients);
+app.use('/api/places', places);
+app.use('/api/calendar', calendar);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-    const err = new Error('InvalidUri or InvalidHttpVerb');
+    const err = new Error('InvalidUri or InvalidHttpVerb' + req.originalUrl);
     err.status = 400;
     next(err);
 });

@@ -3,34 +3,27 @@ const router = express.Router();
 const yelpService = require('../services/yelp.service');
 const faker = require('faker');
 
-async function yelperizeData(yelpResult) {
-    const yelpData = yelpResult.businesses
-                        .map(business => {
-                            const yelpData = {
-                                yelpId: business.id,
-                                name: business.name,
-                                is_closed: business.is_closed,
-                                phone: business.phone,
-                                rating: business.rating,
-                                image_url: business.image_url,
-                                location: `${business.location.city}, ${business.location.state}`,
-                                latitude: business.coordinates.latitude,
-                                longitude: business.coordinates.longitude,
-                                distance: business.distance
-                            }
-                            return yelpData;
-                        })
-                        // .map(async culledYelpBusinesData => {
-                        //     const requestUri = `/businesses/${culledYelpBusinesData.yelpId}`
-                        //     const business = JSON.parse(await yelpService.yelpGetPromise(requestUri))
-                        //     return {
-                        //         ...culledYelpBusinesData,
-                        //         hours: business.hours
-                        //     }
-                        // })
+function mapYelpBusiness(business) {
+    return {
+        yelpId: business.id,
+        name: business.name,
+        is_closed: business.is_closed,
+        phone: business.display_phone,
+        rating: business.rating,
+        image_url: business.image_url,
+        location: `${business.location.city}, ${business.location.state}`,
+        display_address: business.location.display_address.join(', '),
+        latitude: business.coordinates.latitude,
+        longitude: business.coordinates.longitude,
+        distance: business.distance,
+        cost: business.price.length,
+        display_cost: business.price
+    };
+}
 
-    
-    //add nm review data
+async function yelperizeData(yelpResult) {
+    const yelpData = yelpResult.businesses.map(mapYelpBusiness);
+
     const finalData = yelpData.map(business => {
         return {
             ...business,
@@ -41,31 +34,18 @@ async function yelperizeData(yelpResult) {
 }
 
 async function yelperizeSingleBusiness(yelpResult) {
-    
-        const yelpData ={
-            yelpId: yelpResult.id,
-            name: yelpResult.name,
-            is_closed: yelpResult.is_closed,
-            phone: yelpResult.phone,
-            rating: yelpResult.rating,
-            image_url: yelpResult.image_url,
-            location: `${yelpResult.location.city}, ${yelpResult.location.state}`,
-            latitude: yelpResult.coordinates.latitude,
-            longitude: yelpResult.coordinates.longitude,
-            distance: yelpResult.distance,
-            hours: yelpResult.hours,
-            nmReview: Math.floor(Math.random() * Math.floor(5))
-        }
-            
-        return yelpData;
-    
+    const yelpData = mapYelpBusiness(yelpResult);
+    yelpData.nmReview = Math.floor(Math.random() * Math.floor(5));
+    yelpData.hours = yelpResult.hours;
+
+    return yelpData;
 }
 
 //Ex. localhost:8080/events?category=coffee&location=53210
 router.get('/', async (req, res, next) => {
     const { client, category, location, grade, price } = req.query;
     const requestUri = `/businesses/search?term=${category}&location=${location}`
-    //get yelp data 
+    //get yelp data
     try {
         const result = await yelpService.yelpGetPromise(requestUri);
         const data = await yelperizeData(JSON.parse(result));
@@ -73,12 +53,11 @@ router.get('/', async (req, res, next) => {
     } catch(error) {
         console.log(error)
     }
-}), 
+}),
 
-router.get('/id/:id', async (req, res, next) => {
-    const { client, category, location, grade, price } = req.query;
+router.get('/:id', async (req, res, next) => {
     const requestUri = `/businesses/${req.params.id}`
-    //get yelp data 
+    //get yelp data
     try {
         const result = await yelpService.yelpGetPromise(requestUri);
         const data = await yelperizeSingleBusiness(JSON.parse(result));
@@ -86,7 +65,7 @@ router.get('/id/:id', async (req, res, next) => {
     } catch(error) {
         console.log(error)
     }
-}), 
+}),
 
 
 module.exports = router;
