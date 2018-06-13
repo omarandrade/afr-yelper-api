@@ -6,7 +6,7 @@ const app = express();
 const health = require('./routes/health.route');
 const clients = require('./routes/clients.route');
 const events = require('./routes/events.route');
-const office = require('./routes/calendar.route');
+const calendar = require('./routes/calendar.route');
 
 app.use((req, res, next) => {
     debug('Request received');
@@ -25,8 +25,9 @@ app.use(bodyParser.json());
 
 // Health check route used to validate service is up and healthly
 app.use('/health', health);
-
-app.use('/', clients);
+app.use('/clients', clients);
+app.use('/events', events);
+app.use('/calendar', calendar);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
