@@ -40,6 +40,7 @@ async function yelperizeData(yelpResult) {
     return finalData;
 }
 
+//Ex. localhost:8080/events?category=coffee&location=53210
 router.get('/', async (req, res, next) => {
     const { client, category, location, grade, price } = req.query;
     const requestUri = `/businesses/search?term=${category}&location=${location}&limit=5`
