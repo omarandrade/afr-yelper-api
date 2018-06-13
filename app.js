@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const health = require('./routes/health.route');
 const clients = require('./routes/clients.route');
-const events = require('./routes/events.route');
+const places = require('./routes/places.route');
 const calendar = require('./routes/calendar.route');
 
 app.use((req, res, next) => {
@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 // Health check route used to validate service is up and healthly
 app.use('/health', health);
 app.use('/clients', clients);
-app.use('/events', events);
+app.use('/places', places);
 app.use('/calendar', calendar);
 
 // catch 404 and forward to error handler
