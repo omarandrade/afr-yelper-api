@@ -16,6 +16,12 @@ const yelpPostPromise = (uri, body) => {
     return request.post(uri, {
         headers: {
             Authorization: `Bearer ${yelpConfig.API_KEY}`
-        }
+        }, 
+        body
     });
+}
+
+module.exports = {
+    yelpGetPromise,
+    yelpPostPromise
 }
