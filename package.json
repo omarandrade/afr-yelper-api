@@ -4,7 +4,8 @@
   "description": "yelper api",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
   "dependencies": {
     "config": "^1.30.0",
     "express": "^4.16.3",
+    "faker": "^4.1.0",
     "request-promise": "^4.2.2"
   },
   "devDependencies": {

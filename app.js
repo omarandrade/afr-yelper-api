@@ -3,6 +3,8 @@ const debug = require('debug')('api:app');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const health = require('./routes/health.route');
+const clients = require('./routes/clients.route');
 
 app.use((req, res, next) => {
     debug('Request received');
@@ -21,6 +23,8 @@ app.use(bodyParser.json());
 
 // Health check route used to validate service is up and healthly
 app.use('/health', health);
+
+app.use('/', clients);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
