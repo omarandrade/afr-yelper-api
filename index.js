@@ -19,10 +19,10 @@ process.on('SIGTERM', () => {
     });
 });
 
-let HTTP_PORT = 8080;
+let HTTP_PORT = 3000;
 // Override default ports when running on windows or mac
 if (process.platform === 'darwin' || process.platform === 'win32') {
-    HTTP_PORT = 8080;
+    HTTP_PORT = 3000;
 }
 
 // Start http server
