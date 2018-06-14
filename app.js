@@ -7,6 +7,7 @@ const health = require('./routes/health.route');
 const clients = require('./routes/clients.route');
 const places = require('./routes/places.route');
 const calendar = require('./routes/calendar.route');
+const incoming = require('./routes/incoming.route');
 
 app.use((req, res, next) => {
     debug('Request received');
@@ -23,11 +24,13 @@ app.use((req, res, next) => {
 // A new body object containing the parsed data is populated on the request object after the middleware (i.e. req.body).
 app.use(bodyParser.json());
 
+
 // Health check route used to validate service is up and healthly
 app.use('/api/health', health);
 app.use('/api/clients', clients);
 app.use('/api/places', places);
 app.use('/api/calendar', calendar);
+app.use('/api/incoming', incoming);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
