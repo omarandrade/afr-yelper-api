@@ -49,7 +49,9 @@ router.get('/', async (req, res, next) => {
     try {
         const result = await yelpService.yelpGetPromise(requestUri);
         const data = await yelperizeData(JSON.parse(result));
-        return res.json(data);
+        return res.send({
+            places: data
+        });
     } catch(error) {
         console.log(error)
     }
