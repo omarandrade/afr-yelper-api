@@ -1,10 +1,10 @@
 const faker = require('faker');
-const TEST_GRADES = ['A', 'B', 'C', 'D', 'F'];
+const TEST_GRADES = ['A', 'B', 'C', 'D', 'F', ''];
 
 const getClients = () => {
   const clients = [];
 
-  for (let i = 0; i < 100; i += 1) {
+  for (let i = 0; i < 150; i += 1) {
     clients.push({
       grade: TEST_GRADES[Math.floor(Math.random() * TEST_GRADES.length)],
       homeAddress: faker.address.streetAddress(),
