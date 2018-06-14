@@ -16,7 +16,7 @@ function mapYelpBusiness(business) {
         latitude: business.coordinates.latitude,
         longitude: business.coordinates.longitude,
         distance: business.distance,
-        cost: business.price.length,
+        cost: business.price ? business.price.length : 0,
         display_cost: business.price
     };
 }
